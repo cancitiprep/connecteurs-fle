@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connecteurs FLE — Espace Professeur</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Connecteurs logiques B1</h1>
+    <p>Sélectionnez les phrases pour créer un exercice</p>
+  </header>
+
+  <!-- ═══ Section création ═══ -->
+  <section id="creation-section">
+    <div class="container">
+
+      <!-- Barre de sélection rapide -->
+      <div class="quick-bar">
+        <button class="btn btn-primary btn-sm" id="btn-7">7 aléatoires</button>
+        <button class="btn btn-primary btn-sm" id="btn-10">10 aléatoires</button>
+        <button class="btn btn-primary btn-sm" id="btn-14">14 aléatoires</button>
+        <button class="btn btn-danger btn-sm" id="btn-clear">Tout décocher</button>
+        <span class="count" id="selection-count">Aucune phrase sélectionnée</span>
+      </div>
+
+      <!-- Phrases par catégorie -->
+      <div id="phrases-container"></div>
+
+      <!-- Bouton créer -->
+      <button class="btn-create" id="create-btn" disabled>Créer l'exercice</button>
+
+    </div>
+  </section>
+
+  <!-- ═══ Section résultat (après création) ═══ -->
+  <section id="result-section" class="hidden">
+    <div class="container">
+
+      <!-- Barre d'actions -->
+      <div class="quick-bar" style="justify-content:space-between">
+        <div class="link-box" style="flex:1;margin-right:0.5rem">
+          <input type="text" id="exercise-link" readonly>
+          <button class="btn btn-primary" id="copy-btn">Copier</button>
+        </div>
+        <button class="btn btn-danger" id="reset-btn" onclick="resetExercise()">Remettre à zéro</button>
+      </div>
+
+      <!-- Tableau unifié : corrigé + résultats élèves -->
+      <div class="card">
+        <h3>Corrigé &amp; Résultats <span id="realtime-badge" class="realtime-badge">temps réel</span></h3>
+        <p id="submissions-empty" class="subtitle">En attente des soumissions des élèves...</p>
+        <div class="table-scroll">
+          <table class="unified-table" id="unified-table">
+            <thead>
+              <tr id="unified-thead-row">
+                <th class="col-num">#</th>
+                <th class="col-phrase">Phrase</th>
+                <th class="col-connector">Connecteur</th>
+                <th class="col-category">Catégorie</th>
+                <!-- colonnes élèves ajoutées dynamiquement -->
+              </tr>
+            </thead>
+            <tbody id="unified-tbody"></tbody>
+            <tfoot id="unified-tfoot" class="hidden">
+              <tr id="unified-tfoot-row">
+                <td colspan="4" style="text-align:right;font-weight:700">Score</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="table-legend">
+          <span class="result-correct">✓✓</span> Connecteur + catégorie corrects &nbsp;
+          <span class="result-partial">✓✗</span> Connecteur correct, catégorie fausse &nbsp;
+          <span class="result-partial">✗✓</span> Connecteur faux, catégorie correcte &nbsp;
+          <span class="result-incorrect">✗✗</span> Les deux faux
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="data/phrases.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/tokenizer.js"></script>
+  <script src="js/prof.js"></script>
+
+</body>
+</html>

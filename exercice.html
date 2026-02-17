@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exercice — Connecteurs logiques</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ═══ Écran d'accueil ═══ -->
+  <section id="welcome-screen" class="hidden">
+    <div class="welcome-screen">
+      <h1>Connecteurs logiques</h1>
+      <p>Entrez votre prénom pour commencer l'exercice</p>
+      <input type="text" id="student-name" placeholder="Votre prénom" autocomplete="given-name">
+      <button class="btn-start" id="start-btn">Commencer</button>
+    </div>
+  </section>
+
+  <!-- ═══ Écran instructions ═══ -->
+  <section id="instructions-screen" class="hidden">
+    <div class="instructions-panel">
+      <h2>Comment faire ?</h2>
+      <ol>
+        <li>Cliquez sur les mots qui forment le connecteur logique (ils se surlignent en orange)</li>
+        <li>Choisissez la catégorie du connecteur parmi les pastilles colorées</li>
+        <li>Quand toutes les phrases sont complétées, cliquez « Soumettre »</li>
+      </ol>
+      <button class="btn-start" id="understood-btn">J'ai compris</button>
+    </div>
+  </section>
+
+  <!-- ═══ Écran exercice ═══ -->
+  <section id="exercise-screen" class="hidden">
+
+    <!-- Barre de progression -->
+    <div class="progress-bar">
+      <span class="progress-text" id="progress-text">0 / 0 phrases complétées</span>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="phrases-list"></div>
+    </div>
+
+    <!-- Bouton soumettre -->
+    <div class="submit-bar">
+      <button class="btn-submit" id="submit-btn" disabled>Soumettre mes réponses</button>
+    </div>
+
+  </section>
+
+  <!-- ═══ Écran résultats ═══ -->
+  <section id="results-screen" class="hidden">
+    <div class="results-screen">
+      <h2>Résultats</h2>
+      <div id="score-display"></div>
+      <div id="results-list"></div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="data/phrases.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/tokenizer.js"></script>
+  <script src="js/exercice.js"></script>
+
+</body>
+</html>
