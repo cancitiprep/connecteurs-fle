@@ -1,10 +1,10 @@
 // ═══════════════════════════════════════════════
-// PHRASES DATA — 52 phrases, 7 catégories
+// PHRASES DATA — 53 phrases, 7 categories
 // Source: Les Zexos — Relations logiques B1 (Barbara Delvern)
 // ═══════════════════════════════════════════════
 
 const PHRASES = [
-  // ─── CAUSE (12 phrases) ───
+  // ─── CAUSE (13 phrases) ───
   { id: 1, text: "Elle a annulé son voyage parce que son passeport était expiré.", connector: "parce que", category: "Cause" },
   { id: 2, text: "Puisque tu connais déjà la réponse, inutile de poser la question.", connector: "Puisque", category: "Cause" },
   { id: 3, text: "Comme il pleuvait à verse, les enfants sont restés jouer à l'intérieur.", connector: "Comme", category: "Cause" },
@@ -17,6 +17,7 @@ const PHRASES = [
   { id: 10, text: "Le vol a été retardé à cause du brouillard.", connector: "à cause du", category: "Cause" },
   { id: 11, text: "À force de grimper aux arbres, l'enfant s'est fait mal à l'épaule.", connector: "À force de", category: "Cause" },
   { id: 12, text: "Il a été arrêté pour avoir dépassé la vitesse autorisée.", connector: "pour", category: "Cause" },
+  { id: 53, text: "test", connector: "test", category: "Cause" },
 
   // ─── CONSÉQUENCE (8 phrases) ───
   { id: 13, text: "La route était bloquée par la neige, donc nous avons dû prendre un détour.", connector: "donc", category: "Conséquence" },
@@ -69,16 +70,17 @@ const PHRASES = [
   { id: 50, text: "Vérifie que toutes les fenêtres sont fermées avant de quitter la maison.", connector: "avant de", category: "Temps" },
   { id: 51, text: "Après avoir visité le musée, nous nous sommes installés à la terrasse d'un café.", connector: "Après avoir", category: "Temps" },
   { id: 52, text: "Lorsque nous sommes arrivés au sommet, la vue était spectaculaire.", connector: "Lorsque", category: "Temps" },
+
 ];
 
-const CATEGORIES = ["Cause", "Conséquence", "But", "Opposition", "Concession", "Hypothèse", "Temps"];
+const CATEGORIES = ["Cause","Conséquence","But","Opposition","Concession","Hypothèse","Temps"];
 
 const CAT_COLORS = {
-  Cause:        { bg: "#FFF3E0", border: "#EF6C00", text: "#E65100" },
-  Conséquence:  { bg: "#E8F5E9", border: "#2E7D32", text: "#1B5E20" },
-  But:          { bg: "#E3F2FD", border: "#1565C0", text: "#0D47A1" },
-  Opposition:   { bg: "#FCE4EC", border: "#C62828", text: "#B71C1C" },
-  Concession:   { bg: "#F3E5F5", border: "#7B1FA2", text: "#4A148C" },
-  Hypothèse:    { bg: "#FFF8E1", border: "#F9A825", text: "#F57F17" },
-  Temps:        { bg: "#E0F7FA", border: "#00838F", text: "#006064" },
+  Cause         : { bg: "#FFF3E0", border: "#EF6C00", text: "#E65100" },
+  Conséquence   : { bg: "#E8F5E9", border: "#2E7D32", text: "#1B5E20" },
+  But           : { bg: "#E3F2FD", border: "#1565C0", text: "#0D47A1" },
+  Opposition    : { bg: "#FCE4EC", border: "#C62828", text: "#B71C1C" },
+  Concession    : { bg: "#F3E5F5", border: "#7B1FA2", text: "#4A148C" },
+  Hypothèse     : { bg: "#FFF8E1", border: "#F9A825", text: "#F57F17" },
+  Temps         : { bg: "#E0F7FA", border: "#00838F", text: "#006064" },
 };
