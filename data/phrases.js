@@ -1,10 +1,10 @@
 // ═══════════════════════════════════════════════
-// PHRASES DATA — 53 phrases, 7 categories
+// PHRASES DATA — 52 phrases, 7 categories
 // Source: Les Zexos — Relations logiques B1 (Barbara Delvern)
 // ═══════════════════════════════════════════════
 
 const PHRASES = [
-  // ─── CAUSE (13 phrases) ───
+  // ─── CAUSE (12 phrases) ───
   { id: 1, text: "Elle a annulé son voyage parce que son passeport était expiré.", connector: "parce que", category: "Cause" },
   { id: 2, text: "Puisque tu connais déjà la réponse, inutile de poser la question.", connector: "Puisque", category: "Cause" },
   { id: 3, text: "Comme il pleuvait à verse, les enfants sont restés jouer à l'intérieur.", connector: "Comme", category: "Cause" },
@@ -17,7 +17,6 @@ const PHRASES = [
   { id: 10, text: "Le vol a été retardé à cause du brouillard.", connector: "à cause du", category: "Cause" },
   { id: 11, text: "À force de grimper aux arbres, l'enfant s'est fait mal à l'épaule.", connector: "À force de", category: "Cause" },
   { id: 12, text: "Il a été arrêté pour avoir dépassé la vitesse autorisée.", connector: "pour", category: "Cause" },
-  { id: 53, text: "test", connector: "test", category: "Cause" },
 
   // ─── CONSÉQUENCE (8 phrases) ───
   { id: 13, text: "La route était bloquée par la neige, donc nous avons dû prendre un détour.", connector: "donc", category: "Conséquence" },
