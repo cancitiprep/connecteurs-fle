@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestion des phrases — Connecteurs FLE</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Gestion des phrases</h1>
+    <p>Ajouter, modifier ou supprimer des phrases</p>
+    <a href="index.html" class="btn btn-secondary header-link">Retour</a>
+  </header>
+
+  <div class="container">
+
+    <!-- Barre d'actions -->
+    <div class="admin-toolbar">
+      <span id="phrase-count" class="admin-count">0 phrases</span>
+      <div class="admin-actions">
+        <button class="btn btn-secondary" id="btn-download">Telecharger</button>
+        <button class="btn btn-primary" id="btn-deploy">Deployer</button>
+      </div>
+    </div>
+
+    <!-- Config GitHub (collapsed par défaut) -->
+    <div id="github-config" class="card github-config hidden">
+      <h3>Configuration GitHub</h3>
+      <p class="subtitle">Necessaire une seule fois. Le token est stocke dans votre navigateur uniquement.</p>
+      <div class="github-fields">
+        <label>
+          Personal Access Token
+          <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxx">
+        </label>
+        <a href="https://github.com/settings/tokens/new?scopes=repo&description=Connecteurs+FLE+Admin" target="_blank" class="btn btn-sm btn-secondary">Creer un token</a>
+      </div>
+      <div class="github-fields-row">
+        <button class="btn btn-primary" id="btn-save-token">Enregistrer</button>
+        <button class="btn btn-secondary" id="btn-cancel-config">Annuler</button>
+      </div>
+    </div>
+
+    <!-- Phrases par catégorie -->
+    <div id="admin-container"></div>
+
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast hidden"></div>
+
+  <!-- Scripts -->
+  <script src="data/phrases.js"></script>
+  <script src="js/admin.js"></script>
+
+</body>
+</html>

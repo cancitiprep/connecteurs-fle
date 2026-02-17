@@ -641,6 +641,161 @@ header p {
 .result-partial { color: #e65100; font-weight: 600; }
 .result-incorrect { color: #c62828; font-weight: 600; }
 
+/* ═══ ADMIN (gestion phrases) ═══ */
+
+/* ── Header link ── */
+.header-link {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  font-size: 0.8rem;
+  text-decoration: none;
+  padding: 0.3rem 0.7rem;
+}
+.header-link:hover { background: rgba(255,255,255,0.3); }
+header { position: relative; }
+
+/* ── Admin toolbar ── */
+.admin-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.admin-count {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #667eea;
+}
+.admin-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+/* ── GitHub config ── */
+.github-config {
+  border: 2px solid #667eea;
+}
+.github-fields {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.github-fields label {
+  flex: 1;
+  min-width: 200px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #555;
+}
+.github-fields input {
+  display: block;
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.5rem 0.7rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-family: monospace;
+}
+.github-fields input:focus {
+  outline: none;
+  border-color: #667eea;
+}
+.github-fields-row {
+  display: flex;
+  gap: 0.4rem;
+}
+
+/* ── Phrase edit row ── */
+.phrase-edit-row {
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 0.35rem;
+  transition: background 0.1s;
+}
+.phrase-edit-row:hover { background: #f8f9fa; }
+.phrase-edit-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.phrase-edit-fields .input-text {
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  transition: border-color 0.15s;
+}
+.phrase-edit-fields .input-text:focus {
+  outline: none;
+  border-color: #667eea;
+}
+.phrase-edit-fields .input-text.error {
+  border-color: #c62828;
+}
+.phrase-edit-bottom {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.phrase-edit-fields .input-connector {
+  padding: 0.35rem 0.6rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  width: 180px;
+  transition: border-color 0.15s;
+}
+.phrase-edit-fields .input-connector:focus {
+  outline: none;
+  border-color: #667eea;
+}
+.phrase-edit-fields .input-connector.error {
+  border-color: #c62828;
+}
+.phrase-edit-actions {
+  display: flex;
+  gap: 0.3rem;
+  margin-left: auto;
+}
+
+/* ── Toast notifications ── */
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  padding: 0.7rem 1.4rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  white-space: nowrap;
+}
+.toast-success { background: #2e7d32; color: white; }
+.toast-error { background: #c62828; color: white; }
+.toast-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
 /* ── Utility ── */
 .hidden { display: none !important; }
 .mt-1 { margin-top: 1rem; }
