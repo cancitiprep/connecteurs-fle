@@ -6,11 +6,68 @@
 const GITHUB_REPO = 'cancitiprep/connecteurs-fle';
 const GITHUB_BRANCH = 'main';
 const GITHUB_FILE_PATH = 'data/phrases.js';
+const ADMIN_PASSWORD_HASH = '5f4a2a1d7a6d90e9f74dca2080ac0dc4b850a0ae4b6a7043a23b5a88c359ff80';
 
-let phrases = [...PHRASES];
-let nextId = Math.max(...phrases.map(p => p.id)) + 1;
+let phrases = [];
+let nextId = 1;
+let isAuthenticated = false;
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Vérifier si déjà authentifié dans cette session
+  if (sessionStorage.getItem('admin_auth') === 'true') {
+    unlockAdmin();
+  } else {
+    document.getElementById('login-screen').classList.remove('hidden');
+    document.getElementById('admin-password').focus();
+    document.getElementById('login-btn').addEventListener('click', attemptLogin);
+    document.getElementById('admin-password').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') attemptLogin();
+    });
+  }
+});
+
+// ── Authentification ──
+
+async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function attemptLogin() {
+  const input = document.getElementById('admin-password');
+  const password = input.value;
+
+  if (!password) {
+    input.classList.add('error');
+    return;
+  }
+
+  const hash = await hashPassword(password);
+  if (hash === ADMIN_PASSWORD_HASH) {
+    sessionStorage.setItem('admin_auth', 'true');
+    unlockAdmin();
+  } else {
+    input.classList.add('error');
+    input.value = '';
+    input.placeholder = 'Mot de passe incorrect';
+    input.addEventListener('input', () => {
+      input.classList.remove('error');
+      input.placeholder = 'Mot de passe';
+    }, { once: true });
+  }
+}
+
+function unlockAdmin() {
+  isAuthenticated = true;
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('admin-main').classList.remove('hidden');
+
+  phrases = [...PHRASES];
+  nextId = Math.max(...phrases.map(p => p.id)) + 1;
+
   renderAll();
   document.getElementById('btn-download').addEventListener('click', downloadPhrasesFile);
   document.getElementById('btn-deploy').addEventListener('click', onDeployClick);
@@ -18,10 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('btn-cancel-config').addEventListener('click', () => {
     document.getElementById('github-config').classList.add('hidden');
   });
-
-  // Afficher l'état du token
   updateDeployButton();
-});
+}
 
 // ── Rendu complet ──
 
@@ -98,7 +153,6 @@ function addPhrase(category) {
   phrases.push(newPhrase);
   renderAll();
 
-  // Focus sur le champ texte de la nouvelle phrase
   const row = document.getElementById(`phrase-row-${newPhrase.id}`);
   if (row) {
     row.querySelector('.input-text').focus();
@@ -148,7 +202,12 @@ function deletePhrase(id) {
   showToast('Phrase supprimee');
 }
 
-// ── Génération du fichier ──
+// ── Génération du fichier (sécurisée) ──
+
+function sanitizeText(str) {
+  // Supprimer tout ce qui n'est pas du texte normal (lettres, chiffres, ponctuation courante, accents)
+  return str.replace(/[^\w\s\u00C0-\u024Fà-ÿ.,;:!?'''""\-()\/…—–&]/g, '');
+}
 
 function generatePhrasesJs() {
   let output = `// ═══════════════════════════════════════════════\n`;
@@ -163,9 +222,9 @@ function generatePhrasesJs() {
 
     output += `  // ─── ${cat.toUpperCase()} (${catPhrases.length} phrases) ───\n`;
     for (const p of catPhrases) {
-      const text = p.text.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-      const conn = p.connector.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
-      output += `  { id: ${p.id}, text: "${text}", connector: "${conn}", category: "${p.category}" },\n`;
+      const text = sanitizeText(p.text).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+      const conn = sanitizeText(p.connector).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+      output += `  { id: ${parseInt(p.id)}, text: "${text}", connector: "${conn}", category: "${escapeHtml(p.category)}" },\n`;
     }
     output += `\n`;
   }
@@ -237,6 +296,11 @@ function onDeployClick() {
     document.getElementById('github-token').focus();
     return;
   }
+
+  // Confirmation avant deploy
+  const count = phrases.length;
+  if (!confirm(`Deployer ${count} phrases sur le site ?\n\nLe site sera mis a jour dans ~1 minute.`)) return;
+
   deployToGitHub();
 }
 
@@ -252,7 +316,7 @@ async function deployToGitHub() {
     const content = generatePhrasesJs();
     const contentBase64 = btoa(unescape(encodeURIComponent(content)));
 
-    // 1. Récupérer le SHA actuel du fichier (nécessaire pour l'update)
+    // 1. Récupérer le SHA actuel du fichier
     const getRes = await fetch(
       `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}?ref=${GITHUB_BRANCH}`,
       { headers: { 'Authorization': `token ${token}` } }
@@ -269,7 +333,7 @@ async function deployToGitHub() {
     const fileData = await getRes.json();
     const currentSha = fileData.sha;
 
-    // 2. Mettre à jour le fichier via l'API
+    // 2. Mettre à jour le fichier
     const putRes = await fetch(
       `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`,
       {
