@@ -36,7 +36,4 @@ npx serve .
 - Connecter à Cloudflare Pages
 - Build command : (vide)
 - Output directory : `/`
-- Domaine : `connecteurs-fle.pages.dev`
-
-## Source pédagogique
-Basé sur "Les Zexos — Relations logiques B1" de Barbara Delvern (Experts FLE).
+- Domaine :
