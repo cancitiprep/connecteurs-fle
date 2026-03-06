@@ -131,4 +131,4 @@ Les élèves FLE utilisent souvent leur téléphone. L'interface élève doit ê
 2. Connecter à Cloudflare Pages
 3. Build command : (aucune, c'est du HTML statique)
 4. Output directory : `/` (racine)
-5. Domaine : `connecteurs-fle.pages.dev`
+5. Domaine : 
